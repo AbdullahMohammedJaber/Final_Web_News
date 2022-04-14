@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+ 
+?>
+
 <html>
 <head>
     <title>News Web - Home Page</title>
@@ -24,9 +30,19 @@
 <div class="main-content">
     <div class="wrapper">
         <h1>Manage Admin</h1>
-
+        
         <br/>
+      <div class="success">
+         <?php 
+         if(isset($_SESSION['admin'])){
+            $see = $_SESSION['admin'];
+            echo "$see";
+            unset($_SESSION['admin']);
+         }
+         
+         ?>
 
+      </div>
         <br><br><br>
 
         <!-- Button to Add Admin -->
@@ -42,23 +58,52 @@
                 <th>Actions</th>
             </tr>
 
+                <?php
+                    $username='root';
+                    $server = 'localhost';
+                    $password='';
+                    $dbName='news';
+                  $conn = mysqli_connect($server,$username,$password,$dbName);
+                     if($conn->connect_error){
+                         echo "the connected is Error";
+                     }  
+                     else{
+                         $sql = "select * from admin";
+                        $res =   $conn->query($sql);
+                        if($res && $res->num_rows  > 0){
+                             while($userAdmin=$res->fetch_assoc()){
+                               $id = $userAdmin['id'];
+                               $name = $userAdmin['username'];
+                               $fullName=$userAdmin['fullname'];
+                               ?>
 
-            <tr>
-                <td>id</td>
-                <td>username</td>
-                <td>fullname</td>
+                      <tr>
+                <td><?php echo"$id"  ?></td>
+                <td><?php echo"$name"  ?></td>
+                <td><?php echo"$fullName"  ?></td>
                 <td>
-                    <a href="update-admin.php?id=id" class="btn-secondary"> update </a> &nbsp;
-                    <a href="delete-admin.php?id=id" class="btn-danger"> delete </a>&nbsp;
-                    <a href="update-password.php?id=id" class="btn-primary"> change password </a>&nbsp;
+                    <a href="update-admin.php?id=<?php echo $id   ?>" class="btn-secondary"> update </a> &nbsp;
+                    <a href="delete-admin.php?id=<?php echo $id   ?>" class="btn-danger"> delete </a>&nbsp;
+                    <a href="update-password.php?id=<?php echo $id   ?>" class="btn-primary"> change password </a>&nbsp;
 
                 </td>
             </tr>
+               <?php
 
-            <tr>
-                <td>
-                    <p> no admin yet ! </p></td>
-            </tr>
+                             }                     
+                        }
+                        else{
+                         echo   '<tr>
+                            <td>
+                                <p> no admin yet ! </p></td>
+                        </tr>';
+                        }
+
+                     }
+                ?>
+           
+
+           
 
         </table>
 
@@ -75,3 +120,5 @@
 
 </body>
 </html>
+
+ 

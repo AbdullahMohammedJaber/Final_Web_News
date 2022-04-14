@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+ 
+?>
+
 <html>
 <head>
     <title>News Web - Home Page</title>
@@ -73,3 +79,32 @@
 
 </body>
 </html>
+
+<?php
+  $username='root';
+  $server = 'localhost';
+  $password='';
+  $dbName='news';
+$conn = mysqli_connect($server,$username,$password,$dbName);
+   if($conn->connect_error){
+       echo "the connected is Error";
+   }
+   else{
+      if(isset($_POST['submit'])){
+         $name = $_POST['username'];
+         $Fname = $_POST['full_name'];
+         $pass =  $_POST['password'];
+
+         $sql = " insert into admin set username='$name' , fullname=' $Fname',password='$pass' ";
+         $res = $conn->query($sql);
+         if($res){
+             $_SESSION['admin']="the add admin is successfully";
+
+             header("location:manage-admin.php");
+         }else{
+            $_SESSION['admin']="the add admin is error";
+         }
+        }
+   }
+   $conn->close();
+?>

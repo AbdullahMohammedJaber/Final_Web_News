@@ -3,7 +3,7 @@
 session_start();
  
 ?>
-
+<!--  -->
 <html>
 <head>
     <title>News Web - Home Page</title>
@@ -93,7 +93,7 @@ $conn = mysqli_connect($server,$username,$password,$dbName);
       if(isset($_POST['submit'])){
          $name = $_POST['username'];
          $Fname = $_POST['full_name'];
-         $pass =  $_POST['password'];
+         $pass = md5($_POST['password']);
 
          $sql = " insert into admin set username='$name' , fullname=' $Fname',password='$pass' ";
          $res = $conn->query($sql);

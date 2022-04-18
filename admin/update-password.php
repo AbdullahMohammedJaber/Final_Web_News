@@ -1,3 +1,33 @@
+<?php
+session_start();
+ $username='root';
+ $server = 'localhost';
+ $password='';
+ $dbName='news';
+$conn = mysqli_connect($server,$username,$password,$dbName);
+ if(isset($_GET['id'])){
+     $id = $_GET['id'];  
+    
+      if($conn->connect_error){
+          echo "the connected is Error";
+      }  else{
+          $sql="select * from admin where id='$id'";
+          $res = $conn->query($sql);
+          if($res && $res->num_rows >0){
+              $admin= $res->fetch_assoc();
+              $oldPassword = $admin['password'];
+            
+          }else{
+            header("location:manage-admin.php");
+          }
+      }
+ }else{
+     header("location:manage-admin.php");
+ }
+
+?>
+
+
 <html>
 <head>
     <title>News Web  - Home Page</title>
@@ -73,3 +103,45 @@
 
 </body>
 </html>
+<?php
+  $username='root';
+  $server = 'localhost';
+  $password='';
+  $dbName='news';
+$conn = mysqli_connect($server,$username,$password,$dbName);
+   if($conn->connect_error){
+       echo "the connected is Error";
+   }else{
+    if(isset($_POST['submit'])){
+        $current_password = $_POST['current_password'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+        if($current_password==$oldPassword){
+                   if($new_password==$confirm_password){
+                    $sql = "update admin set password='$new_password'  where id='$id' ";
+                    $res = $conn->query($sql);
+                     if( $res){
+                        $_SESSION['admin']="the update password is successfully";
+            
+                        header("location:manage-admin.php");
+                    }else{
+                       $_SESSION['admin']="the update password is error";
+                    }
+                   }
+                   else{
+                    header("location:manage-admin.php");
+ 
+                   }
+        }else{
+            header("location:manage-admin.php");
+        }
+       
+  
+    }
+     
+   }
+
+
+
+
+?>

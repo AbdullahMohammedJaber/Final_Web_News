@@ -7,7 +7,7 @@ session_start();
 <html>
 <head>
     <title>News Web - Home Page</title>
-
+   <!--  -->
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 

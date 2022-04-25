@@ -17,13 +17,9 @@ $conn = mysqli_connect($server,$username,$password,$dbName);
               $admin= $res->fetch_assoc();
               $oldPassword = $admin['password'];
             
-          }else{
-            header("location:manage-admin.php");
-          }
+          } 
       }
- }else{
-     header("location:manage-admin.php");
- }
+ } 
 
 ?>
 
@@ -114,34 +110,27 @@ $conn = mysqli_connect($server,$username,$password,$dbName);
    }else{
     if(isset($_POST['submit'])){
         $current_password =md5( $_POST['current_password']);
-        $new_password = $_POST['new_password'];
-        $confirm_password = $_POST['confirm_password'];
+        $nps = $_POST['new_password'];
+        $conps = $_POST['confirm_password'];
         if($current_password==$oldPassword){
-                   if($new_password==$confirm_password){
-                       $new_password = md5($new_password);
-                    $sql = "update admin set password='$new_password'  where id='$id' ";
+                   if($nps==$conps){
+                       $nps = md5($nps);
+                    $sql = "update admin set password='$nps'  where id='$id' ";
                     $res = $conn->query($sql);
                      if( $res){
                         $_SESSION['admin']="the update password is successfully";
             
                         header("location:manage-admin.php");
-                    }else{
-                       $_SESSION['admin']="the update password is error";
-                    }
+                    } 
                    }
-                   else{
-                    header("location:manage-admin.php");
- 
-                   }
-        }else{
-            header("location:manage-admin.php");
-        }
+                  
+        } 
        
   
     }
      
    }
-
+   $conn->close();
 
 
 

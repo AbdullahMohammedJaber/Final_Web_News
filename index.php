@@ -157,7 +157,7 @@
     <!-- footer Section Starts Here -->
     <section class="footer">
         <div class="container text-center">
-            <p>All rights reserved. Designed By <a href="#">Abdullah jaber</a></p>
+            <p>All rights reserved. Designed By <a href="#">Loay Attar</a></p>
         </div>
     </section>
     <!-- footer Section Ends Here -->

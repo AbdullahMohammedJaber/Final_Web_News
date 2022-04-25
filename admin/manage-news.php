@@ -93,6 +93,12 @@ session_start();
                        <?php
                              }
                           
+                            }else{
+                                echo   '<tr>
+                                <td>
+                                    <p> no news yet ! </p></td>
+                            </tr>';
+                        
                             }
                         
                         } 

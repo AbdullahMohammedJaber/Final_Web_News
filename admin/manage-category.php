@@ -65,7 +65,7 @@ session_start();
                 }  else{
                     $sql = "select * from category";
                     $res =   $conn->query($sql);
-                    if($res ){
+                    if($res && $res->num_rows  > 0){
                          while($u=$res->fetch_assoc()){
                            $id = $u['id'];
                            $title = $u['title'];

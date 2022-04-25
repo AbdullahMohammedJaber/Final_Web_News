@@ -1,4 +1,31 @@
+<?php
+ $username='root';
+ $server = 'localhost';
+ $password='';
+ $dbName='news';
+ $contCategory = 0 ;
+ $contAdmin = 0 ;
+ $contNews = 0 ;
 
+
+$conn = mysqli_connect($server,$username,$password,$dbName);
+  
+       $sql = "select * from category";
+       $ad = "select * from admin";
+       $ne = "select * from new";
+     $res = $conn->query($sql);
+    if($res && $res->num_rows>0){
+             $contCategory = $res->num_rows;
+     }
+     $r = $conn->query($ad);
+     if($r && $r->num_rows>0){
+        $contAdmin = $r->num_rows;
+       }
+       $e = $conn->query($ne);
+       if($e && $e->num_rows>0){
+          $contNews = $r->num_rows;
+         }
+?>
 
 
 <html>
@@ -30,19 +57,26 @@
                 <br><br>
 
                 <div class="col-4 text-center">
+                <?php  
+                 echo  "<h1>".$contCategory."</h1>";
+                
+                ?>
 
 
-
-                    <h1> number</h1>
+                   
                     <br />
 
-                    Categories
+                    Section
                 </div>
 
                 <div class="col-4 text-center">
 
 
-                    <h1>number</h1>
+                  
+                <?php  
+                 echo  "<h1>".$contNews."</h1>";
+                
+                ?>
                     <br />
                     News
                 </div>
@@ -51,19 +85,15 @@
 
 
 
-                    <h1>number</h1>
+                <?php  
+                 echo  "<h1>".$contAdmin."</h1>";
+                
+                ?>
                     <br />
-                    Total Orders
+                    Admin
                 </div>
 
-                <div class="col-4 text-center">
-
-
-
-                    <h1>number</h1>
-                    <br />
-                    Revenue Generated
-                </div>
+            
 
                 <div class="clearfix"></div>
 

@@ -38,7 +38,7 @@ if(isset($_GET['id'])){
         <div class="container">
             <div class="logo">
                 <a href="#" title="Logo">
-                    <img src="images/logo.jpg" alt="Restaurant Logo" class="img-responsive">
+                    <img src="images/logo.jpg" alt="news" class="img-responsive">
                 </a>
             </div>
 
@@ -96,7 +96,7 @@ if(isset($_GET['id'])){
                  ?>
      <div class="food-menu-box">
                 <div class="food-menu-img">
-                    <img src="<?php  echo $image ; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                    <img src="<?php  echo $image ; ?>" alt="news" class="img-responsive img-curve">
                 </div>
 
                 <div class="food-menu-desc">
@@ -145,7 +145,7 @@ if(isset($_GET['id'])){
     <!-- footer Section Starts Here -->
     <section class="footer">
         <div class="container text-center">
-            <p>All rights reserved. Designed By <a href="#">Abdullah jaber</a></p>
+            <p>All rights reserved. Designed By <a href="#">Loay Attar</a></p>
         </div>
     </section>
     <!-- footer Section Ends Here -->

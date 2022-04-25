@@ -31,11 +31,42 @@
 
     <div class="footer">
         <div class="wrapper">
-            <p class="text-center">2021 All rights reserved, Food House</p>
+            <p class="text-center">2021 All rights reserved, News House</p>
         </div>
     </div>
     <!-- Footer Section Ends -->
 
     </body>
 </html>
+<?php
+ $username='root';
+ $server = 'localhost';
+ $password='';
+ $dbName='news';
+$conn = mysqli_connect($server,$username,$password,$dbName);
+  if($conn->connect_error){
+      echo "the connected is Error";
+  } 
+  else{
+      if(isset($_POST['submit'])){
+          $name = $_POST['username'];
+          $pass=md5( $_POST['password']);
+          $sql = "select * from admin where username ='$name' and password='$pass' ";
+          $res = $conn->query($sql);
+          if($res && $res->num_rows>0){
+              
+            header("location:manage-admin.php");
+       
+          }
+          else {
+            header("location:login.php");
+  
+          }
+      }
+      
+  }
+
+
+
+?>
 

@@ -1,3 +1,36 @@
+ <?php
+   $id = $_GET['id'];
+   $username='root';
+   $server = 'localhost';
+   $password='';
+   $dbName='news';
+ $conn = mysqli_connect($server,$username,$password,$dbName);
+ if(isset($_GET['id'])){
+   
+     if($conn->connect_error){
+         echo "the connected is Error";
+     }else{
+         $sql = "select * from category where id = '$id'";
+         $res = $conn->query($sql);
+         if($res&&$res->num_rows>0){
+              $section = $res->fetch_assoc();
+              $title = $section['title']; 
+              $image = $section['image_name'];
+              $active = $section['active'];
+              $feather=$section['featured'];
+         }else{
+            header("location:manage-category.php");
+
+         }
+     }
+ }
+ else{
+    header("location:manage-category.php");
+
+ }
+ 
+?>
+
 <html>
 <head>
     <title>News Web  - Home Page</title>
@@ -12,16 +45,15 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="manage-admin.php">Admin</a></li>
-            <li><a href="manage-category.php">Category</a></li>
-            <li><a href="manage-food.php">Food</a></li>
-            <li><a href="manage-order.php">Order</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="manage-category.php">Section</a></li>
+            <li><a href="manage-news.php">News</a></li>
+             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 </div>
 <div class="main-content">
     <div class="wrapper">
-        <h1>Update Category</h1>
+        <h1>Update Section</h1>
 
         <br><br>
 
@@ -32,14 +64,17 @@
                 <tr>
                     <td>Title:</td>
                     <td>
-                        <input type="text" name="title" value="">
+                        <input type="text" name="title"
+                         value=<?php echo $title;   ?>
+                         
+                         >
                     </td>
                 </tr>
 
                 <tr>
                     <td>Current Image:</td>
                     <td>
-
+                    <img  src=<?php echo "../".$image;   ?> width="80px" >
                     </td>
                 </tr>
 
@@ -53,18 +88,65 @@
                 <tr>
                     <td>Featured:</td>
                     <td>
-                        <input type="radio" name="featured" value="Yes"> Yes
+                        <input type="radio" name="featured" value="Yes"
+                        
+                         <?php 
+                            if($feather=="Yes"){
+                                echo "checked" ;
+                            }
+                            else{
+                                echo "";
+                            }
+                         
+                         
+                         ?>
+                          
+                         > Yes
 
-                        <input type="radio" name="featured" value="No"> No
+                        <input type="radio" name="featured" value="No" 
+                        <?php 
+                            if($feather=="No"){
+                                echo "checked" ;
+                            }
+                            else{
+                                echo "";
+                            }
+                         
+                         
+                         ?>
+                        > No
                     </td>
                 </tr>
 
                 <tr>
                     <td>Active:</td>
                     <td>
-                        <input type="radio" name="active" value="Yes"> Yes
+                        <input type="radio" name="active" value="Yes"
+                        <?php 
+                            if($active=="Yes"){
+                                echo "checked" ;
+                            }
+                            else{
+                                echo "";
+                            }
+                         
+                         
+                         ?>
+                        > Yes
 
-                        <input type="radio" name="active" value="No"> No
+                        <input type="radio" name="active" value="No"
+                        <?php 
+                            if($active=="No"){
+                                echo "checked" ;
+                            }
+                            else{
+                                echo "";
+                            }
+                         
+                         
+                         ?>
+                        
+                        > No
                     </td>
                 </tr>
 
@@ -86,10 +168,57 @@
 
 <div class="footer">
     <div class="wrapper">
-        <p class="text-center">2021 All rights reserved, Food House</p>
+        <p class="text-center">2021 All rights reserved, News House</p>
     </div>
 </div>
 <!-- Footer Section Ends -->
 
 </body>
 </html>
+<?php 
+   $username='root';
+   $server = 'localhost';
+   $password='';
+   $dbName='news';
+ $conn = mysqli_connect($server,$username,$password,$dbName);
+    if($conn->connect_error){
+        echo "the connected is Error";
+    }else{
+        if(isset($_POST['submit'])){
+            $newTitle = $_POST['title'];
+            $newActive = $_POST['active'];
+            $newFeather = $_POST['featured'];
+            if(isset($_FILES['image']['name']) && $_FILES['image']['name']!=""){
+                $name = $_FILES['image']['name'];
+                $temp = $_FILES['image']['tmp_name'];
+                $ext = explode(".",$name);
+                $ext = end($ext);
+                $newImage = "../images/section/".$title.".".$ext;
+                move_uploaded_file($temp,$newImage);
+            } 
+            else{
+                $newImage = $image;
+            }
+            $sql = 
+            "update category set title ='$newTitle',featured ='$newFeather',active = '$newActive',image_name = '$newImage' where id = '$id'";
+          $res=  $conn->query($sql);
+          if($res){
+            $_SESSION['section']="the update Section is successfully";
+            header("location:manage-category.php");
+
+          }
+          else{
+            $_SESSION['section']="the update Section is Error";
+            header("location:manage-category.php");
+          }
+        } 
+    }
+ 
+
+
+?>
+
+
+
+<!-- 
+ 

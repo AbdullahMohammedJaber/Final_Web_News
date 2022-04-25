@@ -42,10 +42,9 @@ $conn = mysqli_connect($server,$username,$password,$dbName);
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="manage-admin.php">Admin</a></li>
-            <li><a href="manage-category.php">Category</a></li>
-            <li><a href="manage-food.php">Food</a></li>
-            <li><a href="manage-order.php">Order</a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="manage-category.php">Section</a></li>
+            <li><a href="manage-news.php">News</a></li>
+             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -91,7 +90,7 @@ $conn = mysqli_connect($server,$username,$password,$dbName);
 
 <div class="footer">
     <div class="wrapper">
-        <p class="text-center">2021 All rights reserved, Food House</p>
+        <p class="text-center">2021 All rights reserved, News House</p>
     </div>
 </div>
 <!-- Footer Section Ends -->

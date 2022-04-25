@@ -1,4 +1,11 @@
-    <html>
+<?php
+       
+       session_start();
+
+
+?>
+   
+   <html>
     <head>
         <title>News Web - Home Page</title>
 
@@ -12,10 +19,9 @@
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="manage-admin.php">Admin</a></li>
-                <li><a href="manage-category.php">Category</a></li>
-                <li><a href="manage-food.php">Food</a></li>
-                <li><a href="manage-order.php">Order</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="manage-category.php">Section</a></li>
+                <li><a href="manage-news.php">News</a></li>
+                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -80,10 +86,55 @@
 
     <div class="footer">
         <div class="wrapper">
-            <p class="text-center">2021 All rights reserved, Food House</p>
+            <p class="text-center">2021 All rights reserved, News House</p>
         </div>
     </div>
     <!-- Footer Section Ends -->
 
     </body>
     </html>
+    <?php
+         $username='root';
+         $server = 'localhost';
+         $password='';
+         $dbName='news';
+       $conn = mysqli_connect($server,$username,$password,$dbName);
+          if($conn->connect_error){
+              echo "the connected is Error";
+          } 
+          else{
+              if(isset($_POST['submit'])){
+                 $title =$_POST['title'] ;
+                $featured=$_POST['featured'];
+                 $active=$_POST['active'];
+                 if(isset($_FILES['image']['name'])&&$_FILES['image']['name']!=""){
+                     $name = $_FILES['image']['name'];
+                     $temp = $_FILES['image']['tmp_name'];
+                     $ext = explode(".",$name);
+                     $ext = end($ext);
+                     $image_name = "images/".$title.".".$ext;
+                     move_uploaded_file($temp,"../".$image_name);
+                 }else{
+                     $image_name = "../images/logo.png";
+                 }
+                 $sql = "insert into category set title ='$title'
+                 ,featured ='$featured',
+                 active = '$active',
+                 image_name = '$image_name'
+                 ";
+               $res=  $conn->query($sql);
+               if($res){
+                $_SESSION['section']="the add section is successfully";
+   
+                header("location:manage-category.php");
+            }else{
+               $_SESSION['section']="the add section is error";
+            }
+              }
+          }    
+          $conn->close();
+
+
+
+
+?>
